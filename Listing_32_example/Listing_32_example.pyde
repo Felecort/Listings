@@ -1,0 +1,19 @@
+def setup ():
+    size(500, 500)
+    smooth()
+    strokeWeight(30)
+    background(0)
+
+i = 0
+k = 1
+def draw ():
+    global i, k
+    stroke(i, 20)
+    line(mouseX - 50, mouseY - 50, 100 + mouseX - 50, 100 + mouseY - 50)
+    line(100 + mouseX - 50, mouseY - 50, mouseX - 50, 100 + mouseY - 50)
+    i += k
+    if i == 255:
+        k = -1
+
+    if i == 0:
+        k = 1
