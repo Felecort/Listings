@@ -1,8 +1,4 @@
-
-
-
-
-
+#Version 0.1.3
 
 angle = 0
 snakesize = 5
@@ -16,7 +12,8 @@ redo = True
 stopgame = False
 
 def setup():
-    global img_win, img_lose
+    global img_win, img_lose, front
+    front = loadFont("text.vlw")
     img_win = loadImage("win.jpg")
     img_lose = loadImage("lose.jpg")
     restart()
@@ -24,7 +21,7 @@ def setup():
     textAlign(CENTER)
 
 def draw():
-    global applex, appley, stopgame, time
+    global applex, appley, stopgame, time, front
     if stopgame:
         pass
     else:
@@ -99,25 +96,26 @@ def checkdead():
     if snakesize == 30:
         image(img_win, 0, 0)
         fill(0)
-        text("YOU WIN!",250,330)
+        textFont(font , 48)
+        fill(178, 7, 157)
         text("Score:  " + str(snakesize - 5) + " apples eaten", 250,  355)
-        text("Press SHIFT to RESTART", 250, 380)
+        text("Press SHIFT to RESTART", 250, 420)
         stopgame = True
     for i in range(2, snakesize+1):
         if headx[1] == headx[i] and heady[1] == heady[i]:
             image(img_lose, 0, 0)
             fill(255)
-            text("YOU LOSE!", 250,330)
             text("Score:  " + str(snakesize - 5) + " apples eaten", 250,  355)
-            text("Press SHIFT to RESTART", 250, 380)
+            text("Press SHIFT to RESTART", 250, 420)
             stopgame = True
 
         if headx[1] >= width - 8 or heady[1] >= height - 8 or headx[1] <= 0 or heady[1] <= 0:
             image(img_lose, 0, 0)
             fill(255)
-            text("YOU LOSE!", 250, 330)
+            textFont(front , 48)
+            fill(178, 7, 157)
             text("Score:  "+str(snakesize - 5)+" apples eaten", 250, 355);
-            text("Press SHIFT to RESTART", 250, 380)
+            text("Press SHIFT to RESTART", 250, 420)
             stopgame = True
 
 
