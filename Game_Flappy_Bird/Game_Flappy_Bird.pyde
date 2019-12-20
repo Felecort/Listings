@@ -9,7 +9,7 @@ first_click = False
 gamestate = True
 sound_theme_flaf = True
 
-# Установка начальных перепенных
+# Установка начальных переменных
 bird_y = 400        # Координата птицы по Oy
 x = -200            # Координата заднего фона по Ox
 speed = 1           # Скорость падения птицы
@@ -21,8 +21,8 @@ score = 0           # Добавление счётчика
 high_score = 0      # Добавление переменной максимального значения счётчика
 
 def setup():
-    global start, back, bird_fly, bird_down, pipe_up, pipe_down, font, bird_y, theme, flip, die, point1
-    
+    global start, back, bird_down2, bird_fly, bird_down, pipe_up, pipe_down, font, bird_y, theme, flip, die, point1, bird_fly2
+
     # Создание основного окна
     size(680, 800)
 
@@ -37,10 +37,14 @@ def setup():
     pipe_down = loadImage("pipe_down.png")
     back = loadImage("back.png")
     bird_fly = loadImage("bird__1.png")
+    bird_fly2 = loadImage("bird__11.png")
     bird_down = loadImage("bird__2.png")
+    bird_down2 = loadImage("bird_down.png")
+
+    # Инициализация шрифта
     font = loadFont("AgencyFB-Bold-70.vlw")
 
-    # Отрисовка начального рабочего фона
+    # Отрисовка начального фона
     image(back, 0 , 0)                  # Отрисовка заднего фона 
     imageMode(CENTER)
     image(bird_fly, 220, bird_y )       # Отрисовка птицы
@@ -70,7 +74,10 @@ def draw():
 
         # Анимация птицы
         imageMode(CENTER)
-        image(bird_fly, 220, bird_y )
+        if speed < 0:
+            image(bird_fly, 220, bird_y )
+        else:
+            image(bird_fly2, 220, bird_y )
 
         # Изменение координат птицы ( скорость падения )
         x -= 1
@@ -85,13 +92,13 @@ def draw():
             image(pipe_down, wall_x[i], wall_y[i] - pipe_down.height/2 - 100)
             image(pipe_up, wall_x[i], wall_y[i] + pipe_up.height/2 + 100)
 
-            # Создание пары труб, после перехода однорй из пар за координату -65 Ох
+            # Создание пары труб, после перехода первой пары за координату -65 Ох
             if wall_x[i] < -65:
                 wall_y[i] = round(random(-180, 370))  # Рандомные координаты в пределе -180, 370 Ох
                 wall_x[i] = width  
 
             # Добавление очков после преодаления 218 координаты Ох
-            # Число должно быть кратным 6, на столько перемещается труба каждый кадр                    
+            # Число должно быть кратным 6 - на столько перемещается труба каждый кадр                    
             if wall_x[i] == 218:
                 point1.play(1, 0.35)
                 score += 1
@@ -121,10 +128,13 @@ def draw():
             image(pipe_up, wall_x[i], wall_y[i] + pipe_up.height/2 + 100)
 
         # Анимация падения птицы
-        image(bird_down, 220, bird_y)
+        if bird_y < 740:
+            image(bird_down, 220, bird_y)
+        else: 
+            image(bird_down2, 220, bird_y)
 
         # Изменение координаты птицы во время падения 
-        if bird_y < 800:
+        if bird_y < 740:
             bird_y += 10
         else:
             first_click = False
