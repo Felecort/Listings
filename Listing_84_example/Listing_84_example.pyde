@@ -1,10 +1,3 @@
-#import datetime
-#today = datetime.datetime.today()
-#today = datetime.datetime.today()
-#date = today.strftime("%Y-%m-%d_%H-%M")
-#log_name = "log_" + date
-#f = open(log_name + ".txt")
-
 
 rotateCounter = 0
 
